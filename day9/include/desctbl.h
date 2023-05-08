@@ -12,13 +12,13 @@
 #define AR_DATA32_RW 0x4092
 #define AR_CODE32_ER 0x409a
 #define AR_INTGATE32 0x008e
-
+/*GDT的定义*/
 struct SegmentDescriptor {
   short limit_low, base_low;
   char base_mid, access_right;
   char limit_high, base_high;
 };
-
+/*IDT的定义*/
 struct GateDescriptor {
   short offset_low, selector;
   char dw_count, access_right;

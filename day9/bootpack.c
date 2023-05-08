@@ -48,7 +48,7 @@ int main(void) {
   memman_free(memman, 0x00001000, 0x0009e000); // 0x00001000 ~ 0x0009efff
   memman_free(memman, 0x00400000, memtotal - 0x00400000);
 
-  sprintf(s, "memory %dMB, free: %dKB", memtotal / (1024 * 1024),
+  sprintf(s, "memory %dMB, free: %dKB, use percentage", memtotal / (1024 * 1024),
           memman_total(memman) / 1024);
   put_fonts8_asc(binfo->vram, binfo->scrnx, 0, 32, COL8_FFFFFF, s);
 

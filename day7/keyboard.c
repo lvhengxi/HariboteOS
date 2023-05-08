@@ -13,6 +13,8 @@ void wait_KBC_sendready(void) {
   }
 }
 
+/*0x0064设备是键盘控制器设备，包括鼠标控制器
+0x60表示键盘，0x47表示鼠标*/
 void init_keyboard(void) {
   wait_KBC_sendready();
   io_out8(PORT_KEYCMD, KEYCMD_WRITE_MODE);

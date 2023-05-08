@@ -88,18 +88,35 @@ void console_task(struct Sheet *sheet, unsigned int memtotal) {
           cmdline[cursor_x / 8 - 2] = '\0';
           cursor_y = cons_newline(cursor_y, sheet);
 
-          if (!strcmp(cmdline, "mem")) {
+        if(!strcmp(cmdline,"test-cal"))
+        {
+            for(int i=0;i<10000;i++)
+            {
+              sprintf(s, "%d", i);
+              put_fonts8_asc_sht(sheet, 8, cursor_y, COL8_FFFFFF, COL8_000000, s,
+                               30);
+              cursor_y = cons_newline(cursor_y, sheet);
+
+            }
+        } else if (!strcmp(cmdline, "mem-view")) {
             // mem命令
             sprintf(s, "total   %dMB", memtotal / (1024 * 1024));
             put_fonts8_asc_sht(sheet, 8, cursor_y, COL8_FFFFFF, COL8_000000, s,
                                30);
             cursor_y = cons_newline(cursor_y, sheet);
-            sprintf(s, "free %dKB", memman_total(memman) / 1024);
+
+            sprintf(s, "free %dKB", memman_total(memman) / 1024*1024);
             put_fonts8_asc_sht(sheet, 8, cursor_y, COL8_FFFFFF, COL8_000000, s,
                                30);
             cursor_y = cons_newline(cursor_y, sheet);
+            
+            sprintf(s, "percentage %d%%", memman_total(memman)*102400 / memtotal);
+            put_fonts8_asc_sht(sheet, 8, cursor_y, COL8_FFFFFF, COL8_000000, s,
+                               30);
+            
             cursor_y = cons_newline(cursor_y, sheet);
-          } else if (!strcmp(cmdline, "cls")) {
+            cursor_y = cons_newline(cursor_y, sheet);
+          } else if (!strcmp(cmdline, "clean")) {
             // cls命令
             for (int y = 28; y < 28 + 128; y++) {
               for (int x = 8; x < 8 + 240; x++) {
@@ -109,7 +126,7 @@ void console_task(struct Sheet *sheet, unsigned int memtotal) {
 
             sheet_refresh(sheet, 8, 28, 8 + 240, 28 + 128);
             cursor_y = 28;
-          } else if (!strcmp(cmdline, "dir")) {
+          } else if (!strcmp(cmdline, "ls")) {
             // dir命令
             for (x = 0; x < 224; x++) {
               if (finfo[x].name[0] == '\0') {
@@ -132,14 +149,14 @@ void console_task(struct Sheet *sheet, unsigned int memtotal) {
               }
             }
             cursor_y = cons_newline(cursor_y, sheet);
-          } else if (!strncmp(cmdline, "type ", 5)) {
+          } else if (!strncmp(cmdline, "cat ", 4)) {
             // type命令
             for (y = 0; y < 11; y++) {
               s[y] = ' ';
             }
             y = 0;
 
-            for (x = 5; y < 11 && cmdline[x] != '\0'; x++) {
+            for (x = 4; y < 11 && cmdline[x] != '\0'; x++) {
               if (cmdline[x] == '.' && s[y] <= 'z') {
                 y = 8;
               } else {

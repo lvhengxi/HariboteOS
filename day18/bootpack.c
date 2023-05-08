@@ -107,7 +107,7 @@ void console_task(struct Sheet *sheet, unsigned int memtotal) {
 
             sheet_refresh(sheet, 8, 28, 8 + 240, 28 + 128);
             cursor_y = 28;
-          } else if (!strcmp(cmdline, "dir")) {
+          } else if (!strcmp(cmdline, "ls")) {
             // dir命令
             for (int x = 0; x < 224; x++) {
               if (finfo[x].name[0] == '\0') {

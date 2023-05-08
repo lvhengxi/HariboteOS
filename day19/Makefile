@@ -14,7 +14,7 @@ CFLAGS += -I ./include -I ./libc/include
 CFLAGS += -ffunction-sections -nostdlib -nostdinc -fno-builtin -ffreestanding
 CFLAGS += -fno-pie
 
-QEMU_FLAGS 	+= -no-reboot -d in_asm -m size=128
+#QEMU_FLAGS 	+= -no-reboot -d in_asm -m size=128
 
 # C Library Objects
 L_OBJS  := libc/stdio/stdio.bin libc/string/strcmp.bin libc/string/strncmp.bin
